@@ -1,3 +1,4 @@
+# -v --tb=line --language=en
 from pages.main_page import MainPage
 from pages.login_page import LoginPage
 
@@ -14,10 +15,11 @@ def test_guest_can_go_to_login_page(browser):
     page = MainPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
     page.open()  # открываем страницу
     page.go_to_login_page()  # выполняем метод страницы — переходим на страницу логина
-
-
-def test_should_be_login_page(browser):
-    link = "https://selenium1py.pythonanywhere.com/accounts/login/"
-    login_page = LoginPage(browser, link)
-    login_page.open()
+    # https://stepik.org/lesson/238819/step/9?unit=211271 (переходы между страницами)
+    # Первый способ: возвращать нужный Page Object:
+    # login_page = page.go_to_login_page()
+    # login_page.should_be_login_page()
+    # Второй подход: переход происходит неявно, страницу инициализируем в теле теста:
+    login_page = LoginPage(browser, browser.current_url)
     login_page.should_be_login_page()
+

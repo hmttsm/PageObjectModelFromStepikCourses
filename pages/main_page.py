@@ -1,6 +1,5 @@
 from .base_page import BasePage
 from .locators import MainPageLocators
-from selenium.webdriver.common.by import By
 
 
 class MainPage(BasePage):
@@ -8,5 +7,8 @@ class MainPage(BasePage):
         assert self.is_element_present(*MainPageLocators.LOGIN_LINK), "Login link is not presented"
 
     def go_to_login_page(self):
-        login_link = self.browser.find_element(*MainPageLocators.LOGIN_LINK)
-        login_link.click()
+        link = self.browser.find_element(*MainPageLocators.LOGIN_LINK)
+        link.click()
+        # return LoginPage(browser=self.browser, url=self.browser.current_url)
+        # https://stepik.org/lesson/238819/step/9?unit=211271 (переходы между страницами)
+        # Первый способ: возвращать нужный Page Object.
