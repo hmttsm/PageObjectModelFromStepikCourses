@@ -5,8 +5,9 @@ from .locators import ProductPageLocators
 
 
 class ProductPage(BasePage):
-    def should_be_product_page(self):  # TODO add check that this is product page
-        pass
+    def should_be_product_page(self):
+        assert self.is_element_present(*ProductPageLocators.PRODUCT_PAGE), \
+            "You are not on the product page"
 
     def should_be_add_to_basket_button(self):
         assert self.is_element_present(*ProductPageLocators.ADD_TO_BASKET_BUTTON), "There is no add to basket button"

@@ -13,6 +13,10 @@ class BasePage:
         self.url = url
         # self.browser.implicitly_wait(timeout)
 
+    def go_to_basket(self):
+        link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
+        link.click()
+
     def go_to_login_page(self):
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         link.click()
@@ -23,6 +27,7 @@ class BasePage:
                 until_not(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return False
+
         return True
 
     def is_element_present(self, how, what):  # how: css/xpath/etc, what: selector
@@ -30,6 +35,7 @@ class BasePage:
             self.browser.find_element(how, what)
         except NoSuchElementException:
             return False
+
         return True
 
     def is_not_element_present(self, how, what, timeout=4):
@@ -37,6 +43,7 @@ class BasePage:
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return True
+
         return False
 
     def open(self):
