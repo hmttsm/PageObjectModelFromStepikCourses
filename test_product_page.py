@@ -1,4 +1,3 @@
-# additional arguments: -v -rx --tb=line --language=en
 import pytest
 import time
 from pages.product_page import ProductPage
@@ -8,10 +7,11 @@ from pages.login_page import LoginPage
 
 promo_offers = ["?promo=offer0", "?promo=offer1", "?promo=offer2",
                 "?promo=offer3", "?promo=offer4", "?promo=offer5", "?promo=offer6",
-                pytest.param("?promo=offer7", marks=pytest.mark.xfail(reason="Won't finish")),
+                pytest.param("?promo=offer7", marks=pytest.mark.xfail(reason="Won't finish: according 4.3.4")),
                 "?promo=offer8", "?promo=offer9"]
 
 
+@pytest.mark.need_review
 @pytest.mark.parametrize('promo_offer', promo_offers)
 def test_guest_can_add_product_to_basket(browser, promo_offer):
     link = f"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/{promo_offer}"
@@ -60,6 +60,7 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.should_be_login_link()
 
 
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
@@ -68,6 +69,7 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.go_to_login_page()
 
 
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
@@ -96,6 +98,7 @@ class TestUserAddToBasketFromProductPage:
         page.open()
         page.should_not_be_success_message()
 
+    @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, browser):
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
         page = ProductPage(browser, link)
